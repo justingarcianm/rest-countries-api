@@ -100,7 +100,9 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/api/all");
+  const URL = process.env.VERCEL_URL || "http://localhost:3000";
+
+  const res = await fetch(`${URL}/api/all`);
   const data = await res.json();
 
   return {

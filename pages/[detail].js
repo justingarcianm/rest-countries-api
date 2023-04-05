@@ -79,7 +79,8 @@ export async function getServerSideProps(context) {
   const detailSplit = detail.split("-");
   const detailRejoined = detailSplit.map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
 
-  const res = await fetch(`http://localhost:3000/api/${detailRejoined}`);
+  const URL = process.env.VERCEL_URL || "http://localhost:3000";
+  const res = await fetch(`${URL}/api/${detailRejoined}`);
 
   const data = await res.json();
 
