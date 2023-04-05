@@ -78,7 +78,7 @@ export async function getServerSideProps(context) {
   const detailSplit = detail.split("-");
   const detailRejoined = detailSplit.map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
 
-  const URL = `https://${process.env.VERCEL_URL}` || "http://localhost:3000";
+  const URL = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` || "http://localhost:3000";
 
   const res = await axios.get(`${URL}/api/${detailRejoined}`);
 

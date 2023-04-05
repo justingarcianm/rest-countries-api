@@ -100,7 +100,7 @@ function Home({ data }) {
 }
 
 export async function getServerSideProps() {
-  const URL = `https://${process.env.VERCEL_URL}` || "http://localhost:3000";
+  const URL = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` || "http://localhost:3000";
 
   const res = await axios.get(`${URL}/api/all`);
   const data = await res.data;
