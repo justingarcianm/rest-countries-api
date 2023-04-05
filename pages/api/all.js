@@ -1,6 +1,8 @@
+import axios from "axios";
+
 export default async function handler(req, res) {
-  const response = await fetch("https://restcountries.com/v3.1/all");
-  const data = await response.json();
+  const response = await axios.get("https://restcountries.com/v3.1/all");
+  const data = await response.data;
 
   const filteredData = data.map((country) => {
     return {
@@ -18,5 +20,5 @@ export default async function handler(req, res) {
     };
   });
 
-  res.status(200).json(filteredData);
+  return res.status(200).json(filteredData);
 }

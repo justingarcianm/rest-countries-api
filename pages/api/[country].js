@@ -1,10 +1,12 @@
+import axios from "axios";
+
 export default async function handler(req, res) {
   const { country } = req.query;
 
-  const response = await fetch(`https://restcountries.com/v3.1/name/${country}
+  const response = await axios.get(`https://restcountries.com/v3.1/name/${country}
   `);
 
-  const data = await response.json();
+  const data = await response.data;
 
   let langObToArr = [];
   for (const lang in data[0].languages) {
@@ -31,8 +33,8 @@ export default async function handler(req, res) {
 
   if (data[0].borders && data[0].borders.length > 0) {
     const borderStr = data[0].borders.join(", ");
-    const borderRes = await fetch(`https://restcountries.com/v3.1/alpha?codes=${borderStr}`);
-    const borderData = await borderRes.json();
+    const borderRes = await axios.get(`https://restcountries.com/v3.1/alpha?codes=${borderStr}`);
+    const borderData = await borderRes.data;
 
     borders = borderData.map((border) => {
       return {

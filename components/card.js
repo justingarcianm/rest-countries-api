@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import Router from "next/router";
 
 const Card = ({ country, index }) => {
   const { flag, flagAlt, region, name, population, capital } = country;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 import Card from "../components/card";
 
-export default function Home({ data }) {
+function Home({ data }) {
   const [countries, setCountries] = useState([]);
   const [regions, setRegions] = useState([]);
   const [regionDropdown, setRegionDropdown] = useState(false);
@@ -99,13 +99,21 @@ export default function Home({ data }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps() {
   const URL = process.env.VERCEL_URL || "http://localhost:3000";
 
-  const res = await fetch(`${URL}/api/all`);
-  const data = await res.json();
+  const res = await axios.get(`${URL}/api/all`);
+  const data = await res.data;
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { data },
   };
 }
+
+export default Home;

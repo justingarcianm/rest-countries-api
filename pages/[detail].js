@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import axios from "axios";
 
 const Detail = ({ data: { filteredData, borders } }) => {
   const { name, nativeName, flag, flagAlt, population, region, subregion, capital, tld, currencies, languages } = filteredData;
@@ -72,19 +73,25 @@ const Detail = ({ data: { filteredData, borders } }) => {
   );
 };
 
-export default Detail;
-
 export async function getServerSideProps(context) {
   const detail = context.query.detail;
   const detailSplit = detail.split("-");
   const detailRejoined = detailSplit.map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
 
   const URL = process.env.VERCEL_URL || "http://localhost:3000";
-  const res = await fetch(`${URL}/api/${detailRejoined}`);
+  const res = await axios.get(`${URL}/api/${detailRejoined}`);
 
-  const data = await res.json();
+  const data = await res.data;
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: { data },
   };
 }
+
+export default Detail;
