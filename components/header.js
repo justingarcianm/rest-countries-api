@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <header className="shadow-md">
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto p-8">
         <div className="flex gap-4 justify-between items-center">
           <div>
             <Link href="/">

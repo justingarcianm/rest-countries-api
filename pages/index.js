@@ -26,10 +26,10 @@ export default function Home({ data }) {
   };
 
   const updateSearch = (input) => {
-    let value = input.target.value;
+    let value = input.target.value.toLowerCase();
 
     if (value.length > 4) {
-      const newList = data.filter((country) => country.name.common.includes(value));
+      const newList = data.filter((country) => country.name.common.toLowerCase().includes(value));
 
       return setCountries(newList);
     }
@@ -42,15 +42,15 @@ export default function Home({ data }) {
 
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex justify-between items-stretch">
-          <div className="shadow-md p-4 rounded flex justify-start items-stretch w-[30rem] bg-white dark:text-slate-900">
+      <div className="container px-8 mx-auto">
+        <div className="lg:flex block justify-between items-stretch">
+          <div className="max-w-full shadow-md p-4 rounded flex justify-start items-stretch w-[30rem] bg-white dark:text-slate-900">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
             <input className="bg-transparent search-countries leading-tight focus:outline-none w-full px-4" placeholder="Search for a country..." onKeyUp={(e) => updateSearch(e)} />
           </div>
-          <div className="relative leading-tight focus:outline-none">
+          <div className=" lg:pt-0 pt-8 lg:max-w-full max-w-fit relative leading-tight focus:outline-none">
             <button type="button" className="flex bg-white dark:bg-slate-800 shadow-md w-full items-center justify-between rounded p-4 min-w-full gap-4" onClick={() => setRegionDropdown(!regionDropdown)}>
               <span>{selectedRegion}</span>
 
@@ -100,7 +100,7 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch("https://restcountries.com/v3.1/all");
+  const res = await fetch("http://localhost:3000/api/all");
   const data = await res.json();
 
   return {
